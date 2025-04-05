@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <style>
+        body {
+            background-color: pink;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .box {
+            border: 5px solid white;
+            height: 400px;
+            width: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        span {
+            font-size: 80px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <span id="hours">HH</span><span>:</span><span id="mins">MM</span><span>:</span><span id="sec">SS</span><span id="ampm"></span>
+    </div>
+
+    <script>
+        function clock() {
+            let time = new Date();
+            let hh = time.getHours();
+            let mm = time.getMinutes();
+            let ss = time.getSeconds();
+            let ampm = hh >= 12 ? "PM" : "AM";
+
+            if (hh > 12) {
+                hh = hh - 12;
+            } else if (hh === 0) {
+                hh = 12;
+            }
+
+            hh = hh < 10 ? "0" + hh : hh;
+            mm = mm < 10 ? "0" + mm : mm;
+            ss = ss < 10 ? "0" + ss : ss;
+
+            document.getElementById('hours').innerHTML = hh;
+            document.getElementById("mins").innerHTML = mm;
+            document.getElementById("sec").innerHTML = ss;
+            document.getElementById("ampm").innerHTML = ampm;
+
+            change(); // Call the background color changer here
+        }
+
+        function change() {
+            let color = "#";
+            let hex = "0123456789ABCDEF";
+            for (let i = 0; i < 6; i++) {
+                let random = Math.floor(Math.random() * 16);
+                color += hex[random];
+            }
+            document.getElementsByTagName("body")[0].style.backgroundColor = color;
+        }
+
+        setInterval(clock, 1000);
+        clock(); // Call once immediately on page load
+    </script>
+</body>
+</html>
